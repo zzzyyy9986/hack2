@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+.type-road{
+  background: gray;
+}
+.type-boulevard{
+background: blueviolet;
+}
+.type-tree{
+  background-color: green;
+}
+.value-car{
+  background: blue;
+}
+.value-empty{
+  background: white;
+}
+.value-tree{
+  background: green;
+}
