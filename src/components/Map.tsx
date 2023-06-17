@@ -14,8 +14,17 @@ const cycle = (entities:Entity[],MapAr:IPoint[][]) => {
     }
 }
 
+
 export const Map = observer(() => {
     const mData = useStore()
+
+    const startGame = () => {
+        return setInterval(()=>{
+            mData.globalEntities.actives.forEach(el => {
+                mData.globalEntities.change(el)
+            })
+        },100)
+    }
 
     useEffect(() => {
         // if(mData.globalEntities.data.length) {
@@ -31,8 +40,11 @@ export const Map = observer(() => {
     return (
         <div>
             <button type='button' onClick={(e)=>{
-                mData.globalEntities.change('asfds')
-            }}>change</button>
+                startGame()
+            }}>start</button>
+            <button onClick={(e) => {
+                mData.globalEntities.addCar()
+            }}>Добавить</button>
             {mData.globalMap.d.map((row,indexX) => {
                 return ( <div key={indexX} style={{display:'flex'}}>{ row.map((el,indexY) => {
                     // return <h1>ff</h1>

@@ -2,10 +2,13 @@ import {makeAutoObservable} from "mobx";
 import {IEntity} from "./IEntity";
 import {PointValue} from "../map/IMap";
 import {globalMap} from "../map/Map";
+import {uuidv4} from "../../../utils";
 
 
 export class Entities {
     data:{[id:string]:Entity} = {}
+    actives:string[] = []
+    previousCars:{[id:string]:[PointValue[]]} = {}
     constructor() {
         makeAutoObservable(this)
         this.init()
@@ -15,7 +18,7 @@ export class Entities {
             new Entity({
                 id:'asfds',
                 x:1,
-                y:1,
+                y:8,
                 width:5,
                 height:5,
                 type:PointValue.car,
@@ -31,11 +34,27 @@ export class Entities {
                 speed:1
             })
     }
+    addCar(){
+        let id = uuidv4()
+        this.data[id] = new Entity({
+            id:id,
+            x:8,
+            y:6,
+            width:6,
+            height:6,
+            type:PointValue.car,
+            speed:1
+        })
+        this.actives.push(id)
+    }
     change(key:string){
         // if(this.data[key].x - 1 >= globalMap.height) this.data[key].x = globalMap.height - this.data[key].height;
         // if(this.data[key].y - 1 >= globalMap.width) this.data[key].y = globalMap.width - this.data[key].width;
         this.clearPrevious(key)
         if(this.data[key].x + this.data[key].speed + this.data[key].height < globalMap.height)this.data[key].x  += this.data[key].speed
+        else {
+            return false
+        }
         // if(this.data[key].x - 1 >= globalMap.height) this.data[key].x = globalMap.height - this.data[key].height;
         // if(this.data[key].y - 1 >= globalMap.width) this.data[key].y = globalMap.width - this.data[key].width;
 
@@ -47,9 +66,10 @@ export class Entities {
         for (let i = this.data[key].x;i < this.data[key].x + this.data[key].width;i++){
             for(let j=this.data[key].y;j < this.data[key].y + this.data[key].height;j++){
                 // if(i >= globalMap.width ||  j >= globalMap.height ){
-                console.log(i)
+                // console.log(i)
+                // this.previousCars[key][i ][j ] = globalMap.data[i][j].value;
 
-                globalMap.changePoint(i,j,PointValue.car)
+                        globalMap.changePoint(i,j,PointValue.car)
                 // }
                 // else {
                 //     console.log(globalMap.height)
@@ -60,8 +80,10 @@ export class Entities {
     clearPrevious(key:string){
         for (let i = this.data[key].x;i <= this.data[key].x + this.data[key].width;i++){
             for(let j=this.data[key].y;j <= this.data[key].y + this.data[key].height;j++){
-                console.log(i)
-                globalMap.changePoint(i,j,PointValue.empty)
+                // console.log(i)
+                // if(globalMap.d[i][j].value == this.data[key].type) {
+                    globalMap.changePoint(i, j, PointValue.empty)
+                // }
             }
         }
     }

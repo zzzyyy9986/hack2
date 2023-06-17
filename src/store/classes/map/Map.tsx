@@ -36,6 +36,9 @@ export class Map{
     changePoint(x:number,y:number,value:PointValue){
         this.data[x][y] = new Point({...this.data[x][y],value})
     }
+    // clearPoint(x:number,y:number){
+    //     if(this.data[x][y] ==)
+    // }
 }
 export class Point implements IPoint{
     id:string = '';
