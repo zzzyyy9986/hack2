@@ -6,5 +6,6 @@ export interface IEntity {
     y:number,
     height:number,
     width:number,
-    type:PointValue
+    type:PointValue,
+    speed:number
 }

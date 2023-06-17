@@ -37,7 +37,7 @@
   }
 }
 .type-road{
-  background: gray;
+  background: black;
 }
 .type-boulevard{
 background: blueviolet;
@@ -49,7 +49,7 @@ background: blueviolet;
   background: blue;
 }
 .value-empty{
-  background: white;
+  background: bisque;
 }
 .value-tree{
   background: green;

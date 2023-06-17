@@ -1,5 +1,5 @@
 import {useStore} from "../store/store";
-import {PointTypes, PointValue} from "../store/classes/map/IMap";
+import { PointValue} from "../store/classes/map/IMap";
 import {observer} from "mobx-react-lite";
 import {IPoint} from "../store/classes/map/Map";
 import {Entity} from "../store/classes/entities/Entity";
@@ -30,62 +30,38 @@ export const Map = observer(() => {
 
     return (
         <div>
-            {/*{*/}
-            {/*   new Array(40).fill("").map(row => {*/}
-            {/*       return (*/}
-            {/*           <div style={{display:'flex'}}>*/}
-            {/*               {*/}
-            {/*                   new Array(40).fill("").map(cell => {*/}
-            {/*                       return <div key={mData.globalEntities.data[+row + cell].id}>*/}
-            {/*                           {mData.globalEntities.data[+row + cell].type}*/}
-            {/*                       </div>*/}
-            {/*                   })*/}
-            {/*               }*/}
-            {/*           </div>*/}
-            {/*       )*/}
-            {/*   })*/}
-            {/*}*/}
-            {mData.globalMap.data.map((row,indexX) => {
-              return ( <div key={indexX} style={{display:'flex'}}>{ row.map((el,indexY) => {
-                  // return <h1>ff</h1>
-                  //return <PointComp  dd={el} key={el.id} />
-                  return <div>{el.value} </div>
-              })
-              }</div>)
+            <button type='button' onClick={(e)=>{
+                mData.globalEntities.change('asfds')
+            }}>change</button>
+            {mData.globalMap.d.map((row,indexX) => {
+                return ( <div key={indexX} style={{display:'flex'}}>{ row.map((el,indexY) => {
+                    // return <h1>ff</h1>
+                    return <PointComp  p={el} key={el.id} />
+                })
+                }</div>)
             })}
         </div>
     )
 })
 interface IPointComp{
     key:any,
-    dd:IPoint
+    p:IPoint,
 
 }
-const PointComp = observer(({dd}:IPointComp) => {
+const PointComp = observer(({p}:IPointComp) => {
     return (
         // <div style={{display:"inline-block"}}>
-            <div className={ getTypeName(dd.type)} style={{
+            <div className={ getValueClass(p.value)} style={{
                 display:'flex',
-                height:'10px',
-                width:'10px',
+                height:'5px',
+                width:'5px',
                 border:'1px solid black'
             }}>
-
+                {p.value}
             </div>
         // </div>
     )
 })
-const getTypeName = (type:PointTypes)=> {
-    // return 'tree'
-    switch (type){
-        case PointTypes.boulevard:
-            return 'type-boulevard';
-        case PointTypes.road:
-            return 'type-road';
-        case PointTypes.tree:
-            return 'type-tree'
-    }
-}
 const getValueClass = (value:PointValue)=> {
     // return 'tree'
     switch (value){
@@ -95,6 +71,8 @@ const getValueClass = (value:PointValue)=> {
             return 'value-human';
         case PointValue.empty:
             return 'value-empty'
+        case PointValue.road:
+            return 'value-road'
     }
 }
 
